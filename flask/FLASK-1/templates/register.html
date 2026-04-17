@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+    <!-- Estilo personalizado para el formulario (solo se aplican los estilos específicos para el formulario) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleslog.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleslog.css') }}">
+
+    <!-- Contenedor principal de login, asegurándose de que el contenido esté centrado -->
+    <div class="login-container">
+        <h2>Registro</h2>
+        <form method="POST" action="{{ url_for('register') }}">
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de usuario:</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña:</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <button type="submit" class="btn w-100" style="background-color: #7A1CAC; border-color: #7A1CAC; color: white;">Registrar</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('login') }}">Ya tengo una cuenta</a>
+    </div>
+
+{% endblock %}
+

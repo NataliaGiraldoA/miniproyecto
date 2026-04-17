@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+<h1>Mis Soluciones</h1>
+<ul>
+  {% for solution in solutions %}
+    <li>
+      <strong>Problema:</strong> {{ solution.problem_id }} - <strong>Lenguaje:</strong> {{ solution.language }}
+      <pre><code>{{ solution.code }}</code></pre>
+     
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+
+    {% endblock %}

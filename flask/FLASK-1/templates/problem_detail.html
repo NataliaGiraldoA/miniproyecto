@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ problem.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block title %}Inicio{% endblock %}
+    
+    {% block content %}
+    
+    <div class="container">
+        <h1>{{ problem.title }}</h1>
+        <p><strong>Dificultad:</strong> {{ problem.difficulty }}</p>
+        <p>{{ problem.description }}</p>
+
+        <form id="codeForm" method="POST">
+            <label for="language">Selecciona el Lenguaje:</label>
+            <select id="language" name="language">
+                <option value="python" {% if request.form.get('language') == 'python' or request.args.get('language') == 'python' %}selected{% endif %}>Python</option>
+                <option value="java" {% if request.form.get('language') == 'java' or request.args.get('language') == 'java' %}selected{% endif %}>Java</option>
+                <option value="csharp" {% if request.form.get('language') == 'csharp' or request.args.get('language') == 'csharp' %}selected{% endif %}>Csharp</option>
+            </select><br><br>
+
+            <textarea id="code" name="code" rows="10" cols="80">{{ request.form.get('code') or '' }}</textarea>
+            <br><br>
+            <button type="button" id="testButton">Pre-submit Test</button>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="testResult" style="margin-top: 20px;">
+            <!-- El resultado de la prueba se mostrará aquí -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+
+    <script>
+        var editor;
+        var problemId = `{{problem.problem_id | safe}}`;
+        var templates = {
+            python: `{{ problem.template_python | safe }}`,
+            java: `{{ problem.template_java | safe }}`,
+            csharp: `{{ problem.template_csharp | safe }}`
+        };
+
+        function initializeCodeMirror(language) {
+            if (editor) {
+                editor.toTextArea();
+            }
+
+            var mode;
+            if (language === "python") {
+                mode = "python";
+            } else if (language === "java") {
+                mode = "text/x-java";
+            } else if (language === "csharp") {
+                mode = "text/x-csharp";
+            }
+
+            editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                mode: mode,
+                lineNumbers: true,
+                theme: "dracula",
+            });
+
+            editor.setValue(templates[language]);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var language = document.getElementById("language").value;
+            initializeCodeMirror(language);
+
+            document.getElementById("language").addEventListener("change", function() {
+                var newLanguage = this.value;
+                initializeCodeMirror(newLanguage);
+            });
+
+            document.getElementById("testButton").addEventListener("click", function(event) {
+                //event.preventDefault(); // Evita que el formulario se envíe
+                var code = editor.getValue();
+                var language = document.getElementById("language").value;
+                testCode(code, language);
+            });
+            
+            function testCode(code, language) {
+                fetch(`/problem_detail/${problemId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code: code, language: language })
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    let resultHTML = '<h3>Test Result:</h3>';
+                    if (data.status === 'success') {
+                        resultHTML += '<p style="color: green; font-weight: bold;">Correcto</p>';
+                    } else {
+                        resultHTML += '<p style="color: red; font-weight: bold;">Incorrecto</p>';
+                    }
+                    resultHTML += `<pre>${data.result}</pre>`;
+                    document.getElementById("testResult").innerHTML = resultHTML;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById("testResult").innerHTML = `<h3>Error:</h3><pre>${error.message}</pre>`;
+                });
+            }
+
+
+
+        });
+    </script>
+
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleslog.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleslog.css') }}">
+
+<!-- Contenedor principal del login -->
+<div class="login-container shadow-sm">
+    <h2>Iniciar sesión</h2>
+    <form method="POST" action="{{ url_for('login') }}">
+        <div class="mb-3">
+            <label for="username" class="form-label">Nombre de usuario:</label>
+            <input type="text" class="form-control" name="username" id="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña:</label>
+            <input type="password" class="form-control" name="password" id="password" required>
+        </div>
+        <button type="submit" class="btn w-100" style="background-color: #7A1CAC; border-color: #7A1CAC; color: white;">Iniciar sesión</button>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+    </form>
+    <a href="{{ url_for('register') }}">Crear una cuenta</a>
+</div>
+{% endblock %}

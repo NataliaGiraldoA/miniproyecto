@@ -1,0 +1,10 @@
+{
+    "1": {
+        "problem_id": 1,
+        "code": "public class Solution {\r\n    public static int binarySearch(int[] arr, int target) {\r\n        int left = 0;\r\n        int right = arr.length - 1;\r\n\r\n        while (left <= right) {\r\n            int mid = left + (right - left) / 2;\r\n\r\n            if (arr[mid] == target) {\r\n                return mid; \r\n            }\r\n\r\n            else if (arr[mid] > target) {\r\n                right = mid - 1;\r\n            }\r\n\r\n            else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n\r\n\r\n        return -1;\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        int[] arr = {2, 6, 9, 13, 15, 87, 99};  \r\n        int target = 13; \r\n\r\n\r\n        int result = binarySearch(arr, target);\r\n\r\n        if (result == -1) {\r\n            System.out.println(\"Elemento no encontrado.\");\r\n        } else {\r\n            System.out.println(\"Elemento encontrado en el indice: \" + result);\r\n        }\r\n    }\r\n}\r\n"
+    },
+    "2": {
+        "problem_id": 2,
+        "code": "public class Solution {\r\n    public static String reverseString(String text) {\r\n        if (text == null) {\r\n            return null; // Manejo de caso nulo\r\n        }\r\n        StringBuilder reversed = new StringBuilder(text);\r\n        return reversed.reverse().toString(); // Usando StringBuilder para invertir\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        // Ejemplo de uso\r\n        String input = \"hello\";\r\n        String reversed = reverseString(input);\r\n        System.out.println(\"Texto invertido: \" + reversed);\r\n    }\r\n}\r\n"
+    }
+}

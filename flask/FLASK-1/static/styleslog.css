@@ -1,0 +1,147 @@
+/* Ajuste del body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F2FA;  /* Color de fondo */
+    margin: 0;
+    padding: 0;
+    color: #2E073F;  /* Color del texto predeterminado */
+}
+
+/* Contenedor para centrar el contenido */
+/* Asegurarse de que el contenedor de login esté centrado en la página */
+.login-container {
+    max-width: 400px;  /* Ajusta el tamaño del formulario */
+    margin: 50px auto; /* Centra el contenedor horizontal y verticalmente */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Agrega sombra suave */
+    height: 60vh;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Centra los enlaces */
+.login-container a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/* Asegura que el botón tenga el color correcto */
+button {
+    background-color: #7A1CAC !important;
+    border-color: #7A1CAC !important;
+    color: white;
+}
+
+
+/* Estilo del título */
+h2 {
+    text-align: center;
+    color: #4A2367;  /* Color del título */
+    margin-bottom: 1rem;  /* Espacio entre el título y el formulario */
+    font-size: 2rem;  /* Ajuste del tamaño del texto */
+}
+
+/* Estilo del formulario */
+form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Sombra alrededor del formulario */
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Estilo de los labels */
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #4A2367;  /* Color del label */
+}
+
+/* Estilo de los inputs */
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+/* Estilo del botón */
+form button {
+    width: 100%;
+    background-color: #AD49E1;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #7A1CAC;
+}
+
+/* Estilo del enlace */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #4A2367;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Ajustes para la barra de navegación */
+nav {
+    margin: 0;
+    padding: 1rem;
+    background-color: #4A2367; 
+    display: flex;
+    justify-content: center; /* Centra el contenido del nav */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
+
+nav a {
+    color: #EBD3F8; 
+    margin: 0 1.5rem; /* Espaciado entre los enlaces */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Asegura que el menú no se apile en pantallas más pequeñas */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav a {
+        margin: 0.5rem 0;
+    }
+}
